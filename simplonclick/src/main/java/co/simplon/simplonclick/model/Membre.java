@@ -126,6 +126,14 @@ public class Membre {
 	public void setDisponibilite_actuelle(boolean disponibilite_actuelle) {
 		this.disponibilite_actuelle = disponibilite_actuelle;
 	}
+
+	public Set<Inscription> getInscriptions() {
+		return inscriptions;
+	}
+
+	public void setInscriptions(Set<Inscription> inscriptions) {
+		this.inscriptions = inscriptions;
+	}
 	
 
 }
