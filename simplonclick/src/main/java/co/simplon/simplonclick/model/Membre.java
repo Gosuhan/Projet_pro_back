@@ -1,9 +1,15 @@
 package co.simplon.simplonclick.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,7 +31,28 @@ public class Membre {
 	private String fonction;
 	private String niveau_general;
 	private String disponibilite_habituelle;
-	private boolean disponibilite_actuelle;
+	private boolean disponibilite_actuelle = false;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "membre")
+    private Set<Inscription> inscriptions = new HashSet<>();
+	
+	public Membre() {
+		
+	}
+	
+	/*
+	 * method to change boolean admin
+	 */
+	public void estAdmin() {
+		admin = !admin;
+	}
+	
+	/*
+	 * method to change boolean disponibilite_actuelle
+	 */
+	public void estDisponible() {
+		disponibilite_actuelle = !disponibilite_actuelle;
+	}
 	
 	public Long getId_membre() {
 		return id_membre;

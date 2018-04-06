@@ -1,9 +1,12 @@
 package co.simplon.simplonclick.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +20,14 @@ public class Ressource {
 	private Long id_ressource;
 	private String url;
 	private String nom_ressource;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "savoir_id_savoir", nullable = false)
+    private Savoir savoir;
+	
+	public Ressource() {
+		
+	}
 	
 	public Long getId_ressource() {
 		return id_ressource;
@@ -35,6 +46,14 @@ public class Ressource {
 	}
 	public void setNom_ressource(String nom_ressource) {
 		this.nom_ressource = nom_ressource;
+	}
+
+	public Savoir getSavoir() {
+		return savoir;
+	}
+
+	public void setSavoir(Savoir savoir) {
+		this.savoir = savoir;
 	}
 
 }

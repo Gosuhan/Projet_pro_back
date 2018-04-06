@@ -1,9 +1,15 @@
 package co.simplon.simplonclick.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +23,13 @@ public class CategorieSavoir {
 	private Long id_categorie_savoir;
 	private String nom_categorie_savoir;
 	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categorie_savoir")
+    private Set<Savoir> savoirs = new HashSet<>();
+	
+	public CategorieSavoir() {
+		
+	}
+	
 	public Long getId_categorie_savoir() {
 		return id_categorie_savoir;
 	}
@@ -28,6 +41,14 @@ public class CategorieSavoir {
 	}
 	public void setNom_categorie_savoir(String nom_categorie_savoir) {
 		this.nom_categorie_savoir = nom_categorie_savoir;
+	}
+
+	public Set<Savoir> getSavoirs() {
+		return savoirs;
+	}
+
+	public void setSavoirs(Set<Savoir> savoirs) {
+		this.savoirs = savoirs;
 	}
 
 }

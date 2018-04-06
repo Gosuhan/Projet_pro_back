@@ -1,9 +1,15 @@
 package co.simplon.simplonclick.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +23,13 @@ public class TypeInscription {
 	private Long id_type_inscription;
 	private String type_inscription;
 	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "type_inscription")
+    private Set<Inscription> inscriptions = new HashSet<>();
+	
+	public TypeInscription() {
+		
+	}
+	
 	public Long getId_type_inscription() {
 		return id_type_inscription;
 	}
@@ -28,6 +41,14 @@ public class TypeInscription {
 	}
 	public void setType_inscription(String type_inscription) {
 		this.type_inscription = type_inscription;
+	}
+
+	public Set<Inscription> getInscriptions() {
+		return inscriptions;
+	}
+
+	public void setInscriptions(Set<Inscription> inscriptions) {
+		this.inscriptions = inscriptions;
 	}
 
 }
