@@ -38,8 +38,8 @@ public class Savoir {
 	@JsonIgnore
     private Set<Ressource> ressources = new HashSet<>();
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categorie_savoir_id_categorie_savoir", nullable = false)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY) //Optional = Autorisation NULL
+    @JoinColumn(name = "categorie_savoir_id_categorie_savoir", nullable = true) // + nullable
 	@JsonIgnore
     private CategorieSavoir categorie_savoir;
 	

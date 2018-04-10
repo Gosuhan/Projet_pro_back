@@ -26,8 +26,8 @@ public class Ressource {
 	private String url;
 	private String nom_ressource;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "savoir_id_savoir", nullable = false)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "savoir_id_savoir", nullable = true)
 	@JsonIgnore
     private Savoir savoir;
 	

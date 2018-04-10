@@ -24,23 +24,23 @@ public class Inscription {
 	
 	private Long id_inscription;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "membre_id_membre", nullable = false)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "membre_id_membre", nullable = true)
 	@JsonIgnore
     private Membre membre;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "type_inscription_id_type_inscription", nullable = false)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "type_inscription_id_type_inscription", nullable = true)
 	@JsonIgnore
     private TypeInscription type_inscription;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "niveau_savoir_id_niveau_savoir", nullable = false)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "niveau_savoir_id_niveau_savoir", nullable = true)
 	@JsonIgnore
     private NiveauSavoir niveau_savoir;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "savoir_id_savoir", nullable = false)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "savoir_id_savoir", nullable = true)
 	@JsonIgnore
     private Savoir savoir;
 	
