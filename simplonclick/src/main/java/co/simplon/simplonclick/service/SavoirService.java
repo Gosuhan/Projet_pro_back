@@ -13,7 +13,7 @@ public class SavoirService {
 	@Autowired
 	private SavoirRepository savoirRepository;
 	
-	public Iterable<Savoir> getAllcategorySavoirs() throws Exception {
+	public Iterable<Savoir> getAllSavoirs() throws Exception {
 		return savoirRepository.findAll();
 	}
 	
