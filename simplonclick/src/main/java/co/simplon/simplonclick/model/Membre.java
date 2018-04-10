@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "membre")
 
@@ -30,6 +32,7 @@ public class Membre {
 	private String prenom;
 	private boolean admin = false;
 	private String email;
+	private String pseudo_slack;
 	private String image;
 	private String fonction;
 	private String niveau_general;
@@ -37,6 +40,11 @@ public class Membre {
 	private boolean disponibilite_actuelle = false;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "membre")
+	@JsonIgnore
+	/*
+	 * Pour que Jackson fonctionne bien, l'un des deux côtés de la relation ne doit pas être sérialisé,
+	 * afin d'éviter la boucle infinie qui provoque l'erreur stackoverflow (Postman)
+	 */
     private Set<Inscription> inscriptions = new HashSet<>();
 	
 	public Membre() {
@@ -99,6 +107,14 @@ public class Membre {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getPseudo_slack() {
+		return pseudo_slack;
+	}
+
+	public void setPseudo_slack(String pseudo_slack) {
+		this.pseudo_slack = pseudo_slack;
+	}
+
 	public String getImage() {
 		return image;
 	}

@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "categorie_savoir")
 
@@ -27,6 +29,7 @@ public class CategorieSavoir {
 	private String nom_categorie_savoir;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categorie_savoir")
+	@JsonIgnore
     private Set<Savoir> savoirs = new HashSet<>();
 	
 	public CategorieSavoir() {
