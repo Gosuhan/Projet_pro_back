@@ -1,8 +1,11 @@
 package co.simplon.simplonclick.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.simplon.simplonclick.dao.NiveauSavoirDAO;
+import co.simplon.simplonclick.model.Inscription;
 import co.simplon.simplonclick.model.NiveauSavoir;
 import co.simplon.simplonclick.service.NiveauSavoirService;
 
@@ -28,6 +33,8 @@ public class NiveauSavoirController {
 	
 	@Autowired
 	private NiveauSavoirService niveauSavoirService;
+	@Autowired
+	private NiveauSavoirDAO niveauSavoirDAO;
 	
 	//INSERT INTO `simplonclick`.`niveau_savoir` (`id_niveau_savoir`, `niveau_savoir`) VALUES (?,?);
 	@PostMapping(path = "/niveau-savoir")
@@ -84,6 +91,23 @@ public class NiveauSavoirController {
 
 		niveauSavoirService.deleteNiveauSavoir(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping(path = "/niveau-savoir/{id}/inscriptions")
+	public ResponseEntity<?> recupererInscriptionsDeNiveauSavoir(@PathVariable(value = "id") long id) throws Exception {
+		List<Inscription> inscriptions = null;
+		NiveauSavoir niveauSavoir = niveauSavoirService.getNiveauSavoir(id);
+		try {
+		inscriptions = niveauSavoirDAO.recupererInscriptionsDeSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (niveauSavoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(inscriptions);
 	}
 
 }

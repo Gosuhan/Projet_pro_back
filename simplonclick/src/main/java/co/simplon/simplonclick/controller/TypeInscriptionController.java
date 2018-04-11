@@ -1,8 +1,11 @@
 package co.simplon.simplonclick.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.simplon.simplonclick.dao.TypeInscriptionDAO;
+import co.simplon.simplonclick.model.Inscription;
 import co.simplon.simplonclick.model.TypeInscription;
 import co.simplon.simplonclick.service.TypeInscriptionService;
 
@@ -28,6 +33,9 @@ public class TypeInscriptionController {
 	
 	@Autowired
 	private TypeInscriptionService typeInscriptionService;
+	@Autowired
+	private TypeInscriptionDAO typeInscriptionDAO;
+	
 	
 	//INSERT INTO `simplonclick`.`type_inscription` (`id_type_inscription`, `type_inscription`) VALUES (?,?);
 	@PostMapping(path = "/type-inscription")
@@ -84,6 +92,23 @@ public class TypeInscriptionController {
 
 		typeInscriptionService.deleteTypeInscription(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping(path = "/type-inscription/{id}/inscriptions")
+	public ResponseEntity<?> recupererInscriptionsDeTypeInscription(@PathVariable(value = "id") long id) throws Exception {
+		List<Inscription> inscriptions = null;
+		TypeInscription typeInscription = typeInscriptionService.getTypeInscription(id);
+		try {
+		inscriptions = typeInscriptionDAO.recupererInscriptionsDeTypeInscription(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (typeInscription == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(inscriptions);
 	}
 
 }

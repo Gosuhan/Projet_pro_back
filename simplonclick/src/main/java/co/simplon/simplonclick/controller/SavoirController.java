@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.simplon.simplonclick.dao.SavoirDAO;
+import co.simplon.simplonclick.model.Inscription;
 import co.simplon.simplonclick.model.Ressource;
 import co.simplon.simplonclick.model.Savoir;
 import co.simplon.simplonclick.service.SavoirService;
@@ -108,6 +109,23 @@ public class SavoirController {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(ressources);
+	}
+	
+	@GetMapping(path = "/savoir/{id}/inscriptions")
+	public ResponseEntity<?> recupererInscriptionsDeSavoir(@PathVariable(value = "id") long id) throws Exception {
+		List<Inscription> inscriptions = null;
+		Savoir savoir = savoirService.getSavoir(id);
+		try {
+		inscriptions = savoirDAO.recupererInscriptionsDeSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (savoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(inscriptions);
 	}
 
 }
