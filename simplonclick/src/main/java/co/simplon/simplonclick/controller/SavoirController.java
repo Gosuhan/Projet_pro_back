@@ -1,8 +1,11 @@
 package co.simplon.simplonclick.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.simplon.simplonclick.dao.SavoirDAO;
+import co.simplon.simplonclick.model.CategorieSavoir;
+import co.simplon.simplonclick.model.Ressource;
 import co.simplon.simplonclick.model.Savoir;
 import co.simplon.simplonclick.service.SavoirService;
 
@@ -28,6 +34,8 @@ public class SavoirController {
 	
 	@Autowired
 	private SavoirService savoirService;
+	@Autowired
+	private SavoirDAO savoirDAO;
 	
 	//INSERT INTO `simplonclick`.`savoir` (`id_savoir`, `nom_savoir`) VALUES (?,?);
 	@PostMapping(path = "/savoir")
@@ -84,6 +92,23 @@ public class SavoirController {
 
 		savoirService.deleteSavoir(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping(path = "/savoir/{id}/ressources")
+	public ResponseEntity<?> recupererRessourcesDeSavoir(@PathVariable(value = "id") long id) throws Exception {
+		List<Ressource> ressources = 	null;
+		Savoir savoir = savoirService.getSavoir(id);
+		try {
+		ressources = savoirDAO.recupererRessourcesDeSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (savoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(ressources);
 	}
 
 }
