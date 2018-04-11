@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "inscription")
@@ -26,22 +26,23 @@ public class Inscription {
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "membre_id_membre", nullable = true)
-	@JsonIgnore
+	@JsonBackReference
     private Membre membre;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "type_inscription_id_type_inscription", nullable = true)
-	@JsonIgnore
+	@JsonBackReference
     private TypeInscription type_inscription;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "niveau_savoir_id_niveau_savoir", nullable = true)
-	@JsonIgnore
+	@JsonBackReference
     private NiveauSavoir niveau_savoir;
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "savoir_id_savoir", nullable = true)
-	@JsonIgnore
+	@JsonBackReference
+	
     private Savoir savoir;
 	
 	public Inscription() {

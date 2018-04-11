@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "type_inscription")
@@ -29,7 +29,7 @@ public class TypeInscription {
 	private String type_inscription;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "type_inscription")
-	@JsonIgnore
+	@JsonManagedReference
     private Set<Inscription> inscriptions = new HashSet<>();
 	
 	public TypeInscription() {

@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "membre")
@@ -40,7 +40,7 @@ public class Membre {
 	private boolean disponibilite_actuelle = false;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "membre")
-	@JsonIgnore
+	@JsonManagedReference
 	/*
 	 * Pour que Jackson fonctionne bien, l'un des deux côtés de la relation ne doit pas être sérialisé,
 	 * afin d'éviter la boucle infinie qui provoque l'erreur stackoverflow (Postman)

@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "niveau_savoir")
@@ -29,7 +29,7 @@ public class NiveauSavoir {
 	private String niveau_savoir;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "niveau_savoir")
-	@JsonIgnore
+	@JsonManagedReference
     private Set<Inscription> inscriptions = new HashSet<>();
 	
 	public NiveauSavoir() {

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "ressource")
@@ -28,7 +28,8 @@ public class Ressource {
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "savoir_id_savoir", nullable = true)
-	@JsonIgnore
+	@JsonBackReference
+	
     private Savoir savoir;
 	
 	public Ressource() {

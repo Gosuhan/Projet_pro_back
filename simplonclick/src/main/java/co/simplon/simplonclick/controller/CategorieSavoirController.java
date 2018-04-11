@@ -1,8 +1,11 @@
 package co.simplon.simplonclick.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.simplon.simplonclick.dao.CategorieSavoirDAO;
 import co.simplon.simplonclick.model.CategorieSavoir;
+import co.simplon.simplonclick.model.Savoir;
 import co.simplon.simplonclick.service.CategorieSavoirService;
 
 
@@ -28,6 +33,8 @@ public class CategorieSavoirController {
 	
 	@Autowired
 	private CategorieSavoirService categorieSavoirService;
+	@Autowired
+	private CategorieSavoirDAO categorieSavoirDAO;
 	
 	//INSERT INTO `simplonclick`.`categorie_savoir` (`id_categorie_savoir`, `nom_categorie_savoir`) VALUES (?,?);
 	@PostMapping(path = "/categorie-savoir")
@@ -84,6 +91,23 @@ public class CategorieSavoirController {
 
 		categorieSavoirService.deleteCategorieSavoir(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping(path = "/categorie-savoir/{id}/savoirs")
+	public ResponseEntity<?> recupererSavoirsDeCategorieSavoir(@PathVariable(value = "id") long id) throws Exception {
+		List<Savoir> savoirs = 	null;
+		CategorieSavoir categorieSavoir = categorieSavoirService.getCategorieSavoir(id);
+		try {
+		savoirs = categorieSavoirDAO.recupererSavoirsDeCategorieSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (categorieSavoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(savoirs);
 	}
 
 }
