@@ -3,8 +3,6 @@ package co.simplon.simplonclick.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -36,12 +34,12 @@ public class InscriptionDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Membre> recupererMembresDeInscription(Long id) throws Exception {
-		Membre membre;
+	public Membre recupererMembreDeInscription(Long id) throws Exception {
+		Membre membre = new Membre();
 		PreparedStatement pstmt = null;
 		ResultSet rs;
 		String sql;
-		ArrayList<Membre> listeMembres = new ArrayList<Membre>();
+		//Membre membre = new Membre;
 
 		try {
 			// Requete SQL
@@ -62,7 +60,6 @@ public class InscriptionDAO {
 			// resultat requete
 			while (rs.next()) {
 				membre = recupererMembreRS(rs);
-				listeMembres.add(membre);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,7 +69,7 @@ public class InscriptionDAO {
 			pstmt.close();
 		}
 
-		return listeMembres;
+		return membre;
 	}
 
 	private Membre recupererMembreRS(ResultSet rs) throws SQLException {

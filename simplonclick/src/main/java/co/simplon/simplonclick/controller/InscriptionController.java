@@ -1,6 +1,5 @@
 package co.simplon.simplonclick.controller;
 
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -91,11 +90,11 @@ public class InscriptionController {
 	}
 	
 	@GetMapping(path = "/inscription/{id}/membre")
-	public ResponseEntity<?> recupererMembresDeInscription(@PathVariable(value = "id") long id) throws Exception {
-		List<Membre> membres = null;
+	public ResponseEntity<?> recupererMembreDeInscription(@PathVariable(value = "id") long id) throws Exception {
+		Membre membre = null;
 		Inscription inscription = inscriptionService.getInscription(id);
 		try {
-		membres = inscriptionDAO.recupererMembresDeInscription(id);
+		membre = inscriptionDAO.recupererMembreDeInscription(id);
 		}
 		catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
@@ -104,7 +103,7 @@ public class InscriptionController {
 		if (inscription == null) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(membres);
+		return ResponseEntity.status(HttpStatus.OK).body(membre);
 	}
 
 }
