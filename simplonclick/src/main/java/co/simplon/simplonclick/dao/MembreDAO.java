@@ -15,44 +15,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import co.simplon.simplonclick.model.Ressource;
-import co.simplon.simplonclick.model.Savoir;
+import co.simplon.simplonclick.model.Inscription;
 
 @Repository
-public class SavoirDAO {
+public class MembreDAO {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private DataSource dataSource;
 
 	@Autowired
-	public SavoirDAO(JdbcTemplate jdbcTemplate) {
+	public MembreDAO(JdbcTemplate jdbcTemplate) {
 		this.dataSource = jdbcTemplate.getDataSource();
 	}
 
 	/**
-	 * Rechercher les ressources liées à un savoir
+	 * Rechercher les inscriptions liées à un membre
 	 * 
 	 * @param id
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Ressource> recupererRessourcesDeSavoir(Long id) throws Exception {
-		Ressource ressource;
+	public List<Inscription> recupererInscriptionsDeMembre(Long id) throws Exception {
+		Inscription inscription;
 		PreparedStatement pstmt = null;
 		ResultSet rs;
 		String sql;
-		ArrayList<Ressource> listeRessources = new ArrayList<Ressource>();
+		ArrayList<Inscription> listeInscriptions = new ArrayList<Inscription>();
 
 		try {
 			// Requete SQL
-			sql = "SELECT ressource.*\r\n" + 
-					"FROM ressource\r\n" + 
-					"WHERE id_ressource \r\n" + 
+			sql = "SELECT inscription.*\r\n" + 
+					"FROM inscription\r\n" + 
+					"WHERE id_inscription\r\n" + 
 					"IN (\r\n" + 
-					"SELECT id_ressource\r\n" + 
-					"FROM ressource\r\n" + 
-					"WHERE savoir_id_savoir = ?);";
+					"SELECT id_inscription\r\n" + 
+					"FROM inscription\r\n" + 
+					"WHERE membre_id_membre = ?);";
 		
 			pstmt = dataSource.getConnection().prepareStatement(sql);
 			pstmt.setLong(1, id);
@@ -62,8 +61,8 @@ public class SavoirDAO {
 			rs = pstmt.executeQuery();
 			// resultat requete
 			while (rs.next()) {
-				ressource = recupererRessourceRS(rs);
-				listeRessources.add(ressource);
+				inscription = recupererInscriptionRS(rs);
+				listeInscriptions.add(inscription);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,16 +72,14 @@ public class SavoirDAO {
 			pstmt.close();
 		}
 
-		return listeRessources;
+		return listeInscriptions;
 	}
 
-	private Ressource recupererRessourceRS(ResultSet rs) throws SQLException {
-		Ressource ressource = new Ressource();
-		ressource.setId_ressource(rs.getLong("id_ressource"));
-		ressource.setUrl(rs.getString("url"));
-		ressource.setNom_ressource(rs.getString("nom_ressource"));
+	private Inscription recupererInscriptionRS(ResultSet rs) throws SQLException {
+		Inscription inscription = new Inscription();
+		inscription.setId_inscription(rs.getLong("id_inscription"));
 
-		return ressource;
+		return inscription;
 	}
 
 	private void logSQL(PreparedStatement pstmt) {

@@ -1,8 +1,11 @@
 package co.simplon.simplonclick.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.simplon.simplonclick.dao.MembreDAO;
+import co.simplon.simplonclick.model.Inscription;
 import co.simplon.simplonclick.model.Membre;
 import co.simplon.simplonclick.service.MembreService;
 
@@ -26,6 +31,8 @@ public class MembreController {
 	
 	@Autowired
 	private MembreService membreService;
+	@Autowired
+	private MembreDAO membreDAO;
 	
 	//INSERT INTO `simplonclick`.`membre` (`id_membre`, `pseudo`, `password`,`nom`, `prenom`, `admin`, `email`, `pseudo_slack`, `image`, `fonction`, `niveau_general`, `disponibilite_habituelle`, `disponibilite_actuelle`) VALUES (?,?,?,?,?);
 	@PostMapping(path = "/membre")
@@ -115,6 +122,23 @@ public class MembreController {
 
 		membreService.deleteMembre(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping(path = "/membre/{id}/inscriptions")
+	public ResponseEntity<?> recupererInscriptionsDeMembre(@PathVariable(value = "id") long id) throws Exception {
+		List<Inscription> inscriptions = null;
+		Membre membre = membreService.getMembre(id);
+		try {
+		inscriptions = membreDAO.recupererInscriptionsDeMembre(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (membre == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(inscriptions);
 	}
 
 }
