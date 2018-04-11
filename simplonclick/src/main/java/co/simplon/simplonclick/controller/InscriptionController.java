@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import co.simplon.simplonclick.dao.InscriptionDAO;
 import co.simplon.simplonclick.model.Inscription;
 import co.simplon.simplonclick.model.Membre;
+import co.simplon.simplonclick.model.NiveauSavoir;
+import co.simplon.simplonclick.model.Savoir;
+import co.simplon.simplonclick.model.TypeInscription;
 import co.simplon.simplonclick.service.InscriptionService;
 
 
@@ -104,6 +107,57 @@ public class InscriptionController {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(membre);
+	}
+	
+	@GetMapping(path = "/inscription/{id}/savoir")
+	public ResponseEntity<?> recupererSavoirDeInscription(@PathVariable(value = "id") long id) throws Exception {
+		Savoir savoir = null;
+		Inscription inscription = inscriptionService.getInscription(id);
+		try {
+			savoir = inscriptionDAO.recupererSavoirDeInscription(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (inscription == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(savoir);
+	}
+	
+	@GetMapping(path = "/inscription/{id}/type-inscription")
+	public ResponseEntity<?> recupererTypeInscriptionDeInscription(@PathVariable(value = "id") long id) throws Exception {
+		TypeInscription typeInscription = null;
+		Inscription inscription = inscriptionService.getInscription(id);
+		try {
+			typeInscription = inscriptionDAO.recupererTypeInscriptionDeInscription(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (inscription == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(typeInscription);
+	}
+	
+	@GetMapping(path = "/inscription/{id}/niveau-savoir")
+	public ResponseEntity<?> recupererNiveauSavoirDeInscription(@PathVariable(value = "id") long id) throws Exception {
+		NiveauSavoir niveauSavoir = null;
+		Inscription inscription = inscriptionService.getInscription(id);
+		try {
+			niveauSavoir = inscriptionDAO.recupererNiveauSavoirDeInscription(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (inscription == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(niveauSavoir);
 	}
 
 }
