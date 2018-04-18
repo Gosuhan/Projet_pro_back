@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -32,16 +33,16 @@ public class Savoir {
 	private String nom_savoir;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "savoir")
-	@JsonManagedReference
+	@JsonIgnore
     private Set<Inscription> inscriptions = new HashSet<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "savoir")
-	@JsonManagedReference
+	@JsonIgnore
     private Set<Ressource> ressources = new HashSet<>();
 	
 	@ManyToOne(optional = true, fetch = FetchType.LAZY) //Optional = Autorisation NULL
     @JoinColumn(name = "categorie_savoir_id_categorie_savoir", nullable = true) // + nullable
-	@JsonBackReference
+	@JsonIgnore
 	
     private CategorieSavoir categorie_savoir;
 	

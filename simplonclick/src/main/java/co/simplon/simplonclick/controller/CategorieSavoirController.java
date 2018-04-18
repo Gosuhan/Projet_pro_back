@@ -37,7 +37,7 @@ public class CategorieSavoirController {
 	private CategorieSavoirDAO categorieSavoirDAO;
 	
 	//INSERT INTO `simplonclick`.`categorie_savoir` (`id_categorie_savoir`, `nom_categorie_savoir`) VALUES (?,?);
-	@PostMapping(path = "/categorie-savoir")
+	@PostMapping(path = "/categories-savoir")
 	CategorieSavoir addCategorieSavoir(@Valid @RequestBody CategorieSavoir categorieSavoir) throws Exception {
 		return categorieSavoirService.addCategorieSavoir(categorieSavoir);
 	}

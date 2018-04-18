@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import co.simplon.simplonclick.model.CategorieSavoir;
 import co.simplon.simplonclick.model.Inscription;
 import co.simplon.simplonclick.model.Ressource;
 
@@ -96,6 +97,59 @@ public class SavoirDAO {
 	}
 	
 	/**
+	 * Rechercher la catégorie liée à un savoir
+	 * 
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public CategorieSavoir recupererCategorieSavoirDeSavoir(Long id) throws Exception {
+		CategorieSavoir categorieSavoir = new CategorieSavoir();
+		PreparedStatement pstmt = null;
+		ResultSet rs;
+		String sql;
+
+		try {
+			// Requete SQL
+			sql = "SELECT categorie_savoir.*\r\n" + 
+					"FROM categorie_savoir\r\n" + 
+					"WHERE id_categorie_savoir \r\n" + 
+					"IN (\r\n" + 
+					"SELECT categorie_savoir_id_categorie_savoir\r\n" + 
+					"FROM savoir\r\n" + 
+					"WHERE id_savoir = ?);";
+		
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			rs = pstmt.executeQuery();
+			// resultat requete
+			while (rs.next()) {
+				categorieSavoir = recupererCategorieSavoirRS(rs);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+
+		return categorieSavoir;
+	}
+
+	private CategorieSavoir recupererCategorieSavoirRS(ResultSet rs) throws SQLException {
+		CategorieSavoir categorieSavoir = new CategorieSavoir();
+		categorieSavoir.setId_categorie_savoir(rs.getLong("id_categorie_savoir"));
+		categorieSavoir.setNom_categorie_savoir(rs.getString("nom_categorie_savoir"));
+
+		return categorieSavoir;
+	}
+
+	
+	/**
 	 * Rechercher les inscriptions liées à un savoir
 	 * 
 	 * @param id
@@ -146,6 +200,36 @@ public class SavoirDAO {
 		inscription.setId_inscription(rs.getLong("id_inscription"));
 
 		return inscription;
+	}
+	
+	/**
+	 * Ajouter un savoir à une categorie de savoirs
+	 * 
+	 * @param id_savoir
+	 * @param categorie_savoir_id_categorie_savoir
+	 * @throws Exception
+	 */
+	public void lierSavoiraCategorieSavoir(long id_savoir, long categorie_savoir_id_categorie_savoir) throws Exception {
+		PreparedStatement pstmt = null;
+		String sql;
+		try {
+			// Requete SQL
+			sql = "UPDATE savoir SET categorie_savoir_id_categorie_savoir = ? where id_savoir = ?;";
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, categorie_savoir_id_categorie_savoir);
+			pstmt.setLong(2, id_savoir);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
 	}
 	
 }

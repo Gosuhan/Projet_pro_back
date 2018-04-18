@@ -35,7 +35,7 @@ public class MembreController {
 	private MembreDAO membreDAO;
 	
 	//INSERT INTO `simplonclick`.`membre` (`id_membre`, `pseudo`, `password`,`nom`, `prenom`, `admin`, `email`, `pseudo_slack`, `image`, `fonction`, `niveau_general`, `disponibilite_habituelle`, `disponibilite_actuelle`) VALUES (?,?,?,?,?);
-	@PostMapping(path = "/membre")
+	@PostMapping(path = "/membres")
 	Membre addMembre(@Valid @RequestBody Membre membre) throws Exception {
 		return membreService.addMembre(membre);
 	}

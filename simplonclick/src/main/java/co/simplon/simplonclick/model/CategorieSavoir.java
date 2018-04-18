@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -30,7 +31,7 @@ public class CategorieSavoir {
 	private String nom_categorie_savoir;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categorie_savoir")
-	@JsonManagedReference
+	@JsonIgnore
 	
     private Set<Savoir> savoirs = new HashSet<>();
 	

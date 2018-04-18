@@ -3,6 +3,7 @@ package co.simplon.simplonclick.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.simplon.simplonclick.dao.RessourceDAO;
 import co.simplon.simplonclick.model.Ressource;
+import co.simplon.simplonclick.model.Savoir;
 import co.simplon.simplonclick.service.RessourceService;
 
 
@@ -28,9 +31,11 @@ public class RessourceController {
 	
 	@Autowired
 	private RessourceService ressourceService;
+	@Autowired
+	private RessourceDAO ressourceDAO;
 	
 	//INSERT INTO `simplonclick`.`ressource` (`id_ressource`, `url`, `nom_ressource`) VALUES (?,?,?);
-	@PostMapping(path = "/ressource")
+	@PostMapping(path = "/ressources")
 	Ressource addRessource(@Valid @RequestBody Ressource ressource) throws Exception {
 		return ressourceService.addRessource(ressource);
 	}
@@ -88,6 +93,43 @@ public class RessourceController {
 
 		ressourceService.deleteRessource(id);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping(path = "/ressource/{id}/savoir")
+	public ResponseEntity<?> recupererSavoirDeRessource(@PathVariable(value = "id") long id) throws Exception {
+		Savoir savoir = 	null;
+		Ressource ressource = ressourceService.getRessource(id);
+		try {
+		savoir = ressourceDAO.recupererSavoirDeRessource(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (ressource == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(savoir);
+	}
+	
+	/**
+	 * Ajouter une ressource à un savoir
+	 * 
+	 * @param id_ressource
+	 * @param id_savoir
+	 * @return
+	 * @throws Exception
+	 */
+	@PutMapping(path = "/savoir/{id_savoir}/addressource/{id_ressource}")		
+	ResponseEntity<?> lierRessourceaSavoir(@PathVariable(value = "id_ressource") long id_ressource, @PathVariable(value = "id_savoir") long id_savoir) throws Exception {
+		try {
+			ressourceDAO.lierRessourceaSavoir(id_ressource, id_savoir);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(null);
+
 	}
 
 }

@@ -38,7 +38,7 @@ public class TypeInscriptionController {
 	
 	
 	//INSERT INTO `simplonclick`.`type_inscription` (`id_type_inscription`, `type_inscription`) VALUES (?,?);
-	@PostMapping(path = "/type-inscription")
+	@PostMapping(path = "/types-inscription")
 	TypeInscription addTypeInscription(@Valid @RequestBody TypeInscription typeInscription) throws Exception {
 		return typeInscriptionService.addTypeInscription(typeInscription);
 	}

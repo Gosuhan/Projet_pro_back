@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.simplon.simplonclick.dao.SavoirDAO;
+import co.simplon.simplonclick.model.CategorieSavoir;
 import co.simplon.simplonclick.model.Inscription;
 import co.simplon.simplonclick.model.Ressource;
 import co.simplon.simplonclick.model.Savoir;
@@ -38,7 +39,7 @@ public class SavoirController {
 	private SavoirDAO savoirDAO;
 	
 	//INSERT INTO `simplonclick`.`savoir` (`id_savoir`, `nom_savoir`) VALUES (?,?);
-	@PostMapping(path = "/savoir")
+	@PostMapping(path = "/savoirs")
 	Savoir addSavoir(@Valid @RequestBody Savoir savoir) throws Exception {
 		return savoirService.addSavoir(savoir);
 	}
@@ -111,6 +112,23 @@ public class SavoirController {
 		return ResponseEntity.status(HttpStatus.OK).body(ressources);
 	}
 	
+	@GetMapping(path = "/savoir/{id}/categorie-savoir")
+	public ResponseEntity<?> recupererCategorieSavoirDeSavoir(@PathVariable(value = "id") long id) throws Exception {
+		CategorieSavoir categorieSavoir = 	null;
+		Savoir savoir = savoirService.getSavoir(id);
+		try {
+		categorieSavoir = savoirDAO.recupererCategorieSavoirDeSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (savoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(categorieSavoir);
+	}
+	
 	@GetMapping(path = "/savoir/{id}/inscriptions")
 	public ResponseEntity<?> recupererInscriptionsDeSavoir(@PathVariable(value = "id") long id) throws Exception {
 		List<Inscription> inscriptions = null;
@@ -126,6 +144,26 @@ public class SavoirController {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(inscriptions);
+	}
+	
+	/**
+	 * Ajouter un savoir à une catégorie de savoir
+	 * 
+	 * @param id_savoir
+	 * @param id_categorie_savoir
+	 * @return
+	 * @throws Exception
+	 */
+	@PutMapping(path = "/categorie-savoir/{id_categorie_savoir}/addsavoir/{id_savoir}")		
+	ResponseEntity<?> lierSavoiraCategorieSavoir(@PathVariable(value = "id_savoir") long id_savoir, @PathVariable(value = "id_categorie_savoir") long id_categorie_savoir) throws Exception {
+		try {
+			savoirDAO.lierSavoiraCategorieSavoir(id_savoir, id_categorie_savoir);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(null);
+
 	}
 
 }

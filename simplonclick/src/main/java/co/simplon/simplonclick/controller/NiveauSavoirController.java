@@ -37,7 +37,7 @@ public class NiveauSavoirController {
 	private NiveauSavoirDAO niveauSavoirDAO;
 	
 	//INSERT INTO `simplonclick`.`niveau_savoir` (`id_niveau_savoir`, `niveau_savoir`) VALUES (?,?);
-	@PostMapping(path = "/niveau-savoir")
+	@PostMapping(path = "/niveaux-savoir")
 	NiveauSavoir addNiveauSavoir(@Valid @RequestBody NiveauSavoir niveauSavoir) throws Exception {
 		return niveauSavoirService.addNiveauSavoir(niveauSavoir);
 	}
