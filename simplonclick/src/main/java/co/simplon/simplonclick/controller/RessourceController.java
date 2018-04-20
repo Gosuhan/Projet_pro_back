@@ -1,5 +1,7 @@
 package co.simplon.simplonclick.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,6 +132,45 @@ public class RessourceController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(null);
 
+	}
+	
+	/**
+	 * Retirer une ressource à un savoir
+	 * 
+	 * @param id_ressource
+	 * @param id_savoir
+	 * @return
+	 * @throws Exception
+	 */
+	@PutMapping(path = "/savoir/{id_savoir}/delressource/{id_ressource}")		
+	ResponseEntity<?> delierRessourceaSavoir(@PathVariable(value = "id_ressource") long id_ressource, @PathVariable(value = "id_savoir") long id_savoir) throws Exception {
+		try {
+			ressourceDAO.delierRessourceaSavoir(id_ressource);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(null);
+
+	}
+	
+	/**
+	 * Permettre une recherche de ressource(s) suivant des mots-clés
+	 * 
+	 * @param recherche
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping(path = "/ressources/{recherche}")
+	public ResponseEntity<List<Ressource>> recupererRessourcesTriees(@PathVariable(value = "recherche") String recherche)
+			throws Exception {
+		// @RequestParam(required = false, value="nom") String nom
+
+		List<Ressource> listeRessource = ressourceDAO.recupererRessourcesTriees(recherche);
+		if (listeRessource == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(listeRessource);
 	}
 
 }

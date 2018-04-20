@@ -258,4 +258,124 @@ public class InscriptionDAO {
 
 		return niveauSavoir;
 	}
+	
+	/**
+	 * Ajouter une inscription à un membre
+	 * 
+	 * @param id_inscription
+	 * @param membre_id_membre
+	 * @throws Exception
+	 */
+	public void lierInscriptionaMembre(long id_inscription, long membre_id_membre) throws Exception {
+		PreparedStatement pstmt = null;
+		String sql;
+		try {
+			// Requete SQL
+			sql = "UPDATE inscription SET membre_id_membre = ? where id_inscription = ?;";
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, membre_id_membre);
+			pstmt.setLong(2, id_inscription);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+	}
+	
+	/**
+	 * Ajouter une inscription à un niveau de savoir
+	 * 
+	 * @param id_inscription
+	 * @param niveau_savoir_id_niveau_savoir
+	 * @throws Exception
+	 */
+	public void lierInscriptionaNiveauSavoir(long id_inscription, long niveau_savoir_id_niveau_savoir) throws Exception {
+		PreparedStatement pstmt = null;
+		String sql;
+		try {
+			// Requete SQL
+			sql = "UPDATE inscription SET niveau_savoir_id_niveau_savoir = ? where id_inscription = ?;";
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, niveau_savoir_id_niveau_savoir);
+			pstmt.setLong(2, id_inscription);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+	}
+	
+	/**
+	 * Ajouter une inscription à un type d'inscription
+	 * 
+	 * @param id_inscription
+	 * @param type_inscription_id_type_inscription
+	 * @throws Exception
+	 */
+	public void lierInscriptionaTypeInscription(long id_inscription, long type_inscription_id_type_inscription) throws Exception {
+		PreparedStatement pstmt = null;
+		String sql;
+		try {
+			// Requete SQL
+			sql = "UPDATE inscription SET type_inscription_id_type_inscription = ? where id_inscription = ?;";
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, type_inscription_id_type_inscription);
+			pstmt.setLong(2, id_inscription);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+	}
+	
+	/**
+	 * Ajouter une inscription à un savoir
+	 * 
+	 * @param id_inscription
+	 * @param savoir_id_savoir
+	 * @throws Exception
+	 */
+	public void lierInscriptionaSavoir(long id_inscription, long savoir_id_savoir) throws Exception {
+		PreparedStatement pstmt = null;
+		String sql;
+		try {
+			// Requete SQL
+			sql = "UPDATE inscription SET savoir_id_savoir = ? where id_inscription = ?;";
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, savoir_id_savoir);
+			pstmt.setLong(2, id_inscription);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+	}
 }
