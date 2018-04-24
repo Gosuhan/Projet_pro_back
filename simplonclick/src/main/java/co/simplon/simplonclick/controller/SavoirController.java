@@ -165,5 +165,25 @@ public class SavoirController {
 		return ResponseEntity.status(HttpStatus.OK).body(null);
 
 	}
+	
+	/**
+	 * Retirer un savoir à une catégorie de savoir
+	 * 
+	 * @param id_savoir
+	 * @param id_categorie_savoir
+	 * @return
+	 * @throws Exception
+	 */
+	@PutMapping(path = "/categorie-savoir/{id_categorie_savoir}/delsavoir/{id_savoir}")		
+	ResponseEntity<?> delierSavoiraCategorieSavoir(@PathVariable(value = "id_savoir") long id_savoir, @PathVariable(value = "id_categorie_savoir") long id_categorie_savoir) throws Exception {
+		try {
+			savoirDAO.delierSavoiraCategorieSavoir(id_savoir);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(null);
+
+	}
 
 }

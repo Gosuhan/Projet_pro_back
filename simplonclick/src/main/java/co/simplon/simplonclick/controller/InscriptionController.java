@@ -181,6 +181,26 @@ public class InscriptionController {
 	}
 	
 	/**
+	 * Retirer une inscription d'un membre
+	 * 
+	 * @param id_inscription
+	 * @param id_membre
+	 * @return
+	 * @throws Exception
+	 */
+	@PutMapping(path = "/membre/{id_membre}/delinscription/{id_inscription}")		
+	ResponseEntity<?> delierInscriptionaMembre(@PathVariable(value = "id_inscription") long id_inscription, @PathVariable(value = "id_membre") long id_membre) throws Exception {
+		try {
+			inscriptionDAO.delierInscriptionaMembre(id_inscription);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(null);
+
+	}
+	
+	/**
 	 * Ajouter une inscription à un niveau de savoir
 	 * 
 	 * @param id_inscription
@@ -192,6 +212,26 @@ public class InscriptionController {
 	ResponseEntity<?> lierInscriptionaNiveauSavoir(@PathVariable(value = "id_inscription") long id_inscription, @PathVariable(value = "id_niveau_savoir") long id_niveau_savoir) throws Exception {
 		try {
 			inscriptionDAO.lierInscriptionaNiveauSavoir(id_inscription, id_niveau_savoir);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(null);
+
+	}
+	
+	/**
+	 * Retirer une inscription d'un niveau de savoir
+	 * 
+	 * @param id_inscription
+	 * @param id_niveau_savoir
+	 * @return
+	 * @throws Exception
+	 */
+	@PutMapping(path = "/niveau-savoir/{id_niveau_savoir}/delinscription/{id_inscription}")		
+	ResponseEntity<?> delierInscriptionaNiveauSavoir(@PathVariable(value = "id_inscription") long id_inscription, @PathVariable(value = "id_niveau_savoir") long id_niveau_savoir) throws Exception {
+		try {
+			inscriptionDAO.delierInscriptionaNiveauSavoir(id_inscription);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}
@@ -221,6 +261,26 @@ public class InscriptionController {
 	}
 	
 	/**
+	 * Retirer une inscription d'un type d'inscription
+	 * 
+	 * @param id_inscription
+	 * @param id_type_inscription
+	 * @return
+	 * @throws Exception
+	 */
+	@PutMapping(path = "/type-inscription/{id_type_inscription}/delinscription/{id_inscription}")		
+	ResponseEntity<?> delierInscriptionaTypeInscription(@PathVariable(value = "id_inscription") long id_inscription, @PathVariable(value = "id_type_inscription") long id_type_inscription) throws Exception {
+		try {
+			inscriptionDAO.delierInscriptionaTypeInscription(id_inscription);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(null);
+
+	}
+	
+	/**
 	 * Ajouter une inscription à un savoir
 	 * 
 	 * @param id_inscription
@@ -232,6 +292,26 @@ public class InscriptionController {
 	ResponseEntity<?> lierInscriptionaSavoir(@PathVariable(value = "id_inscription") long id_inscription, @PathVariable(value = "id_savoir") long id_savoir) throws Exception {
 		try {
 			inscriptionDAO.lierInscriptionaSavoir(id_inscription, id_savoir);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(null);
+
+	}
+	
+	/**
+	 * Retirer une inscription d'un savoir
+	 * 
+	 * @param id_inscription
+	 * @param id_savoir
+	 * @return
+	 * @throws Exception
+	 */
+	@PutMapping(path = "/savoir/{id_savoir}/delinscription/{id_inscription}")		
+	ResponseEntity<?> delierInscriptionaSavoir(@PathVariable(value = "id_inscription") long id_inscription, @PathVariable(value = "id_savoir") long id_savoir) throws Exception {
+		try {
+			inscriptionDAO.delierInscriptionaSavoir(id_inscription);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 		}

@@ -290,6 +290,39 @@ public class InscriptionDAO {
 	}
 	
 	/**
+	 * Retirer une inscription d'un Membre
+	 * 
+	 * @param membre_id_membre
+	 * @param id_inscription
+	 * @throws Exception
+	 */
+	public void delierInscriptionaMembre(long id_inscription) throws Exception {
+
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = " UPDATE inscription SET membre_id_membre = null where id_inscription = ?; ";
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id_inscription);
+			int result = pstmt.executeUpdate();
+			if(result != 1) {
+				throw new Exception("No entry found in database !");
+			} else {
+				System.out.println("Record is deleted!");
+			}
+			System.out.println("Result : " + result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+		
+	}
+	
+	/**
 	 * Ajouter une inscription à un niveau de savoir
 	 * 
 	 * @param id_inscription
@@ -317,6 +350,39 @@ public class InscriptionDAO {
 		} finally {
 			pstmt.close();
 		}
+	}
+	
+	/**
+	 * Retirer une inscription d'un Niveau de Savoir
+	 * 
+	 * @param niveau_savoir_id_niveau_savoir
+	 * @param id_inscription
+	 * @throws Exception
+	 */
+	public void delierInscriptionaNiveauSavoir(long id_inscription) throws Exception {
+
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = " UPDATE inscription SET niveau_savoir_id_niveau_savoir = null where id_inscription = ?; ";
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id_inscription);
+			int result = pstmt.executeUpdate();
+			if(result != 1) {
+				throw new Exception("No entry found in database !");
+			} else {
+				System.out.println("Record is deleted!");
+			}
+			System.out.println("Result : " + result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+		
 	}
 	
 	/**
@@ -350,6 +416,39 @@ public class InscriptionDAO {
 	}
 	
 	/**
+	 * Retirer une inscription d'un Type d'Inscription
+	 * 
+	 * @param type_inscription_id_type_inscription
+	 * @param id_inscription
+	 * @throws Exception
+	 */
+	public void delierInscriptionaTypeInscription(long id_inscription) throws Exception {
+
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = " UPDATE inscription SET type_inscription_id_type_inscription = null where id_inscription = ?; ";
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id_inscription);
+			int result = pstmt.executeUpdate();
+			if(result != 1) {
+				throw new Exception("No entry found in database !");
+			} else {
+				System.out.println("Record is deleted!");
+			}
+			System.out.println("Result : " + result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+		
+	}
+	
+	/**
 	 * Ajouter une inscription à un savoir
 	 * 
 	 * @param id_inscription
@@ -377,5 +476,38 @@ public class InscriptionDAO {
 		} finally {
 			pstmt.close();
 		}
+	}
+	
+	/**
+	 * Retirer une inscription d'un Savoir
+	 * 
+	 * @param savoir_id_savoir
+	 * @param id_inscription
+	 * @throws Exception
+	 */
+	public void delierInscriptionaSavoir(long id_inscription) throws Exception {
+
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = " UPDATE inscription SET savoir_id_savoir = null where id_inscription = ?; ";
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id_inscription);
+			int result = pstmt.executeUpdate();
+			if(result != 1) {
+				throw new Exception("No entry found in database !");
+			} else {
+				System.out.println("Record is deleted!");
+			}
+			System.out.println("Result : " + result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+		
 	}
 }

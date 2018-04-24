@@ -232,4 +232,37 @@ public class SavoirDAO {
 		}
 	}
 	
+	/**
+	 * Retirer un Savoir à d'une Catégorie de Savoir
+	 * 
+	 * @param categorie_savoir_id_categorie_savoir
+	 * @param id_savoir
+	 * @throws Exception
+	 */
+	public void delierSavoiraCategorieSavoir(long id_savoir) throws Exception {
+
+		PreparedStatement pstmt = null;
+		String sql;
+		
+		try {
+			sql = " UPDATE savoir SET categorie_savoir_id_categorie_savoir = null where id_savoir = ?; ";
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id_savoir);
+			int result = pstmt.executeUpdate();
+			if(result != 1) {
+				throw new Exception("No entry found in database !");
+			} else {
+				System.out.println("Record is deleted!");
+			}
+			System.out.println("Result : " + result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+		
+	}
+	
 }
