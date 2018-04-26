@@ -70,11 +70,13 @@ public class MembreController {
 		membreToBeUpdate.setPassword(membre.getPassword());
 		membreToBeUpdate.setNom(membre.getNom());
 		membreToBeUpdate.setPrenom(membre.getPrenom());
+		membreToBeUpdate.setAdmin(membre.isAdmin());
 		membreToBeUpdate.setEmail(membre.getEmail());
 		membreToBeUpdate.setPseudo_slack(membre.getPseudo_slack());
 		membreToBeUpdate.setImage(membre.getImage());
 		membreToBeUpdate.setFonction(membre.getFonction());
 		membreToBeUpdate.setNiveau_general(membre.getNiveau_general());
+		membreToBeUpdate.setDisponibilite_actuelle(membre.isDisponibilite_actuelle());
 		membreToBeUpdate.setDisponibilite_habituelle(membre.getDisponibilite_habituelle());
 		
 
