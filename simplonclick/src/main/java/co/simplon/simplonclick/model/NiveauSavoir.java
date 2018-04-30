@@ -16,6 +16,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -32,8 +33,8 @@ public class NiveauSavoir {
 	private Long id_niveau_savoir;
 	private String niveau_savoir;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "niveau_savoir")
-	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL/*, fetch = FetchType.LAZY*/, mappedBy = "niveau_savoir")
+	@JsonIgnoreProperties(value = {"niveau_savoir", "membre", "type_inscription", "savoir"})
     private Set<Inscription> inscriptions = new HashSet<>();
 	
 	public NiveauSavoir() {

@@ -13,6 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "inscription")
@@ -25,25 +26,24 @@ public class Inscription {
 	
 	private Long id_inscription;
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true/*, fetch = FetchType.LAZY*/)
     @JoinColumn(name = "membre_id_membre", nullable = true)
-	@JsonIgnore
+	@JsonIgnoreProperties(value = {"inscription", "savoir", "type_inscription", "niveau_savoir"})
     private Membre membre;
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true/*, fetch = FetchType.LAZY*/)
     @JoinColumn(name = "type_inscription_id_type_inscription", nullable = true)
-	@JsonIgnore
+	@JsonIgnoreProperties(value = {"inscription", "membre", "savoir", "niveau_savoir"})
     private TypeInscription type_inscription;
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true/*, fetch = FetchType.LAZY*/)
     @JoinColumn(name = "niveau_savoir_id_niveau_savoir", nullable = true)
-	@JsonIgnore
+	@JsonIgnoreProperties(value = {"inscription", "membre", "type_inscription", "savoir"})
     private NiveauSavoir niveau_savoir;
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true/*, fetch = FetchType.LAZY*/)
     @JoinColumn(name = "savoir_id_savoir", nullable = true)
-	@JsonIgnore
-	
+	@JsonIgnoreProperties(value = {"inscription", "membre", "type_inscription", "niveau_savoir"})
     private Savoir savoir;
 	
 	public Inscription() {

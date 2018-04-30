@@ -19,6 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -35,17 +36,17 @@ public class Savoir {
 	private Long id_savoir;
 	private String nom_savoir;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "savoir")
-	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, /*fetch = FetchType.LAZY,*/ mappedBy = "savoir")
+	@JsonIgnoreProperties(value = {"savoir", "membre", "type_inscription", "niveau_savoir"})
     private Set<Inscription> inscriptions = new HashSet<>();
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "savoir")
-	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL/*, fetch = FetchType.LAZY*/, mappedBy = "savoir")
+	@JsonIgnoreProperties("savoir")
     private Set<Ressource> ressources = new HashSet<>();
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY) //Optional = Autorisation NULL
+	@ManyToOne(optional = true/*, fetch = FetchType.LAZY*/) //Optional = Autorisation NULL
     @JoinColumn(name = "categorie_savoir_id_categorie_savoir", nullable = true) // + nullable
-	@JsonIgnore
+	@JsonIgnoreProperties("savoir")
 	
     private CategorieSavoir categorie_savoir;
 	

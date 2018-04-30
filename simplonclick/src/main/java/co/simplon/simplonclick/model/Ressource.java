@@ -14,6 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "ressource",
@@ -30,9 +31,9 @@ public class Ressource {
 	private String url;
 	private String nom_ressource;
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true/*, fetch = FetchType.LAZY*/)
     @JoinColumn(name = "savoir_id_savoir", nullable = true)
-	@JsonIgnore
+	@JsonIgnoreProperties("ressource")
 	
     private Savoir savoir;
 	
