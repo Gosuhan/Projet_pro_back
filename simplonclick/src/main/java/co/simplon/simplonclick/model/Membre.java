@@ -45,7 +45,7 @@ public class Membre {
 	private boolean disponibilite_actuelle = false;
 	
 	@OneToMany(cascade = CascadeType.ALL/*, fetch = FetchType.LAZY*/, mappedBy = "membre")
-	@JsonIgnoreProperties(value = {"membre"}) // Evite la 'lecture' infinie ('lis' moi tout sauf cette class membre)
+	@JsonIgnoreProperties(value = {"membre"}, allowSetters = true) // Evite la 'lecture' infinie ('lis' moi tout sauf cette class membre)
 	/*
 	 * Pour que Jackson fonctionne bien, l'un des deux côtés de la relation ne doit pas être sérialisé,
 	 * afin d'éviter la boucle infinie qui provoque l'erreur stackoverflow (Postman)

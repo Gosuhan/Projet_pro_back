@@ -35,7 +35,7 @@ public class CategorieSavoir {
 	private String nom_categorie_savoir;
 	
 	@OneToMany(cascade = CascadeType.ALL/*, fetch = FetchType.LAZY*/, mappedBy = "categorie_savoir")
-	@JsonIgnoreProperties("categorie_savoir")
+	@JsonIgnoreProperties(value= {"categorie_savoir"}, allowSetters = true)
 	
     private Set<Savoir> savoirs = new HashSet<>();
 	

@@ -34,7 +34,7 @@ public class NiveauSavoir {
 	private String niveau_savoir;
 	
 	@OneToMany(cascade = CascadeType.ALL/*, fetch = FetchType.LAZY*/, mappedBy = "niveau_savoir")
-	@JsonIgnoreProperties(value = {"niveau_savoir", "membre", "type_inscription", "savoir"})
+	@JsonIgnoreProperties(value = {"niveau_savoir", "membre", "type_inscription", "savoir"}, allowSetters = true)
     private Set<Inscription> inscriptions = new HashSet<>();
 	
 	public NiveauSavoir() {

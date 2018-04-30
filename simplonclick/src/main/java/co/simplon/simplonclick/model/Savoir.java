@@ -37,16 +37,16 @@ public class Savoir {
 	private String nom_savoir;
 	
 	@OneToMany(cascade = CascadeType.ALL, /*fetch = FetchType.LAZY,*/ mappedBy = "savoir")
-	@JsonIgnoreProperties(value = {"savoir", "membre", "type_inscription", "niveau_savoir"})
+	@JsonIgnoreProperties(value = {"savoir", "membre", "type_inscription", "niveau_savoir"}, allowSetters = true)
     private Set<Inscription> inscriptions = new HashSet<>();
 	
 	@OneToMany(cascade = CascadeType.ALL/*, fetch = FetchType.LAZY*/, mappedBy = "savoir")
-	@JsonIgnoreProperties("savoir")
+	@JsonIgnoreProperties(value= {"savoir"}, allowSetters = true)
     private Set<Ressource> ressources = new HashSet<>();
 	
 	@ManyToOne(optional = true/*, fetch = FetchType.LAZY*/) //Optional = Autorisation NULL
     @JoinColumn(name = "categorie_savoir_id_categorie_savoir", nullable = true) // + nullable
-	@JsonIgnoreProperties("savoir")
+	@JsonIgnoreProperties(value= {"savoir"}/*, allowSetters = true*/)
 	
     private CategorieSavoir categorie_savoir;
 	

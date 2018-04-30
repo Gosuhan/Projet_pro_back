@@ -33,7 +33,7 @@ public class Ressource {
 	
 	@ManyToOne(optional = true/*, fetch = FetchType.LAZY*/)
     @JoinColumn(name = "savoir_id_savoir", nullable = true)
-	@JsonIgnoreProperties("ressource")
+	@JsonIgnoreProperties(value= {"ressource"}/*, allowSetters = true*/)
 	
     private Savoir savoir;
 	

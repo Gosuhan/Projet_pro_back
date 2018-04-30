@@ -34,7 +34,7 @@ public class TypeInscription {
 	private String type_inscription;
 	
 	@OneToMany(cascade = CascadeType.ALL/*, fetch = FetchType.LAZY*/, mappedBy = "type_inscription")
-	@JsonIgnoreProperties(value = {"type_inscription", "membre", "savoir", "niveau_savoir"})
+	@JsonIgnoreProperties(value = {"type_inscription", "membre", "savoir", "niveau_savoir"}, allowSetters = true)
     private Set<Inscription> inscriptions = new HashSet<>();
 	
 	public TypeInscription() {
