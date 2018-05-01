@@ -199,6 +199,7 @@ public class SavoirDAO {
 	private Inscription recupererInscriptionRS(ResultSet rs) throws SQLException {
 		Inscription inscription = new Inscription();
 		inscription.setId_inscription(rs.getLong("id_inscription"));
+		inscription.setNom_inscription(rs.getString("nom_inscription"));
 
 		return inscription;
 	}

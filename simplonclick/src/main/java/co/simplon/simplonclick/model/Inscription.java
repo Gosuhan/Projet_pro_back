@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -16,7 +17,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "inscription")
+@Table(name = "inscription",
+uniqueConstraints=
+@UniqueConstraint(columnNames={"nom_inscription"}))
 
 public class Inscription {
 	
@@ -25,6 +28,7 @@ public class Inscription {
 	@GenericGenerator(name = "native", strategy = "native")
 	
 	private Long id_inscription;
+	private String nom_inscription;
 	
 	@ManyToOne(optional = true/*, fetch = FetchType.LAZY*/)
     @JoinColumn(name = "membre_id_membre", nullable = true)
@@ -56,6 +60,14 @@ public class Inscription {
 
 	public void setId_inscription(Long id_inscription) {
 		this.id_inscription = id_inscription;
+	}
+
+	public String getNom_inscription() {
+		return nom_inscription;
+	}
+
+	public void setNom_inscription(String nom_inscription) {
+		this.nom_inscription = nom_inscription;
 	}
 
 	public Membre getMembre() {
