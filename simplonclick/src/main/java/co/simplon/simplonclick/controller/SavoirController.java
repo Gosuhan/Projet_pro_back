@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.simplon.simplonclick.dao.SavoirDAO;
 import co.simplon.simplonclick.model.CategorieSavoir;
 import co.simplon.simplonclick.model.Inscription;
+import co.simplon.simplonclick.model.Membre;
 import co.simplon.simplonclick.model.Ressource;
 import co.simplon.simplonclick.model.Savoir;
 import co.simplon.simplonclick.service.SavoirService;
@@ -144,6 +145,23 @@ public class SavoirController {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(inscriptions);
+	}
+	
+	@GetMapping(path = "/savoir/{id}/membres")
+	public ResponseEntity<?> recupererMembresDeSavoir(@PathVariable(value = "id") long id) throws Exception {
+		List<Membre> membres = null;
+		Savoir savoir = savoirService.getSavoir(id);
+		try {
+			membres = savoirDAO.recupererMembresDeSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (savoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(membres);
 	}
 	
 	/**

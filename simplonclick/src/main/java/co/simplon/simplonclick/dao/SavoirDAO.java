@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import co.simplon.simplonclick.model.CategorieSavoir;
 import co.simplon.simplonclick.model.Inscription;
+import co.simplon.simplonclick.model.Membre;
 import co.simplon.simplonclick.model.Ressource;
 
 @Repository
@@ -200,6 +201,70 @@ public class SavoirDAO {
 		inscription.setId_inscription(rs.getLong("id_inscription"));
 
 		return inscription;
+	}
+	
+	/**
+	 * Rechercher les membres liés à un savoir
+	 * 
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Membre> recupererMembresDeSavoir(Long id) throws Exception {
+		Membre membre;
+		PreparedStatement pstmt = null;
+		ResultSet rs;
+		String sql;
+		ArrayList<Membre> listeMembres = new ArrayList<Membre>();
+
+		try {
+			// Requete SQL
+			sql = "SELECT membre.* FROM membre \r\n" + 
+					"WHERE id_membre \r\n" + 
+					"IN (\r\n" + 
+					"SELECT membre_id_membre\r\n" + 
+					"FROM inscription\r\n" + 
+					"WHERE savoir_id_savoir = ?)";
+		
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			rs = pstmt.executeQuery();
+			// resultat requete
+			while (rs.next()) {
+				membre = recupererMembreRS(rs);
+				listeMembres.add(membre);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+
+		return listeMembres;
+	}
+
+	private Membre recupererMembreRS(ResultSet rs) throws SQLException {
+		Membre membre = new Membre();
+		membre.setId_membre(rs.getLong("id_membre"));
+		membre.setPseudo(rs.getString("pseudo"));
+		membre.setPassword(rs.getString("password"));
+		membre.setNom(rs.getString("nom"));
+		membre.setPrenom(rs.getString("prenom"));
+		membre.setAdmin(rs.getBoolean("admin"));
+		membre.setEmail(rs.getString("email"));
+		membre.setPseudo_slack(rs.getString("pseudo_slack"));
+		membre.setImage(rs.getString("image"));
+		membre.setFonction(rs.getString("fonction"));
+		membre.setNiveau_general(rs.getString("niveau_general"));
+		membre.setDisponibilite_habituelle(rs.getString("disponibilite_habituelle"));
+		membre.setDisponibilite_actuelle(rs.getBoolean("disponibilite_actuelle"));
+
+		return membre;
 	}
 	
 	/**
