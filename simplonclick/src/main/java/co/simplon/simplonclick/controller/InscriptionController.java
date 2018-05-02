@@ -1,6 +1,8 @@
 package co.simplon.simplonclick.controller;
 
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import co.simplon.simplonclick.dao.InscriptionDAO;
 import co.simplon.simplonclick.model.Inscription;
 import co.simplon.simplonclick.model.Membre;
 import co.simplon.simplonclick.model.NiveauSavoir;
+import co.simplon.simplonclick.model.Ressource;
 import co.simplon.simplonclick.model.Savoir;
 import co.simplon.simplonclick.model.TypeInscription;
 import co.simplon.simplonclick.service.InscriptionService;
@@ -318,6 +321,25 @@ public class InscriptionController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(null);
 
+	}
+	
+	/**
+	 * Permettre une recherche d'inscription(s) suivant des mots-clés
+	 * 
+	 * @param recherche
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping(path = "/inscriptions/{recherche}")
+	public ResponseEntity<List<Inscription>> recupererInscriptionsTriees(@PathVariable(value = "recherche") String recherche)
+			throws Exception {
+		// @RequestParam(required = false, value="nom") String nom
+
+		List<Inscription> listeInscription = inscriptionDAO.recupererInscriptionsTriees(recherche);
+		if (listeInscription == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(listeInscription);
 	}
 
 }

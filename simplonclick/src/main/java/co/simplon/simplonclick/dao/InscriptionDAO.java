@@ -3,6 +3,8 @@ package co.simplon.simplonclick.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -13,8 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import co.simplon.simplonclick.model.Inscription;
 import co.simplon.simplonclick.model.Membre;
 import co.simplon.simplonclick.model.NiveauSavoir;
+import co.simplon.simplonclick.model.Ressource;
 import co.simplon.simplonclick.model.Savoir;
 import co.simplon.simplonclick.model.TypeInscription;
 
@@ -509,5 +513,55 @@ public class InscriptionDAO {
 			pstmt.close();
 		}
 		
+	}
+	
+	/**
+	 * Rechercher les inscriptions avec un critère de recherche sur tous les champs
+	 * 
+	 * @param filtreInscription
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Inscription> recupererInscriptionsTriees(String rechercheInscription) throws Exception {
+		List<Inscription> inscriptionsTriees = new ArrayList<Inscription>();
+
+		Inscription inscription;
+		PreparedStatement pstmt = null;
+		ResultSet rs;
+		String sql;
+
+		try {
+			// Requete SQL
+			sql = "SELECT * FROM inscription WHERE id_inscription LIKE ? OR nom_inscription LIKE ?;";
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setString(1, "%" + rechercheInscription + "%");
+			pstmt.setString(2, "%" + rechercheInscription + "%");
+
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			rs = pstmt.executeQuery();
+			// resultat requete
+			while (rs.next()) {
+				inscription = recupererInscriptionRS(rs);
+				inscriptionsTriees.add(inscription);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+
+		return inscriptionsTriees;
+	}
+	
+	private Inscription recupererInscriptionRS(ResultSet rs) throws SQLException {
+		Inscription inscription = new Inscription();
+		inscription.setId_inscription(rs.getLong("id_inscription"));
+		inscription.setNom_inscription(rs.getString("nom_inscription"));
+
+		return inscription;
 	}
 }
