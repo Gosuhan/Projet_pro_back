@@ -248,6 +248,324 @@ public class SavoirDAO {
 
 		return listeMembres;
 	}
+	
+	public List<Membre> recupererMembresPasseursDeSavoir(Long id) throws Exception {
+		Membre membre;
+		PreparedStatement pstmt = null;
+		ResultSet rs;
+		String sql;
+		ArrayList<Membre> listeMembres = new ArrayList<Membre>();
+
+		try {
+			// Requete SQL
+			sql = "SELECT membre.* FROM membre \r\n" + 
+					"WHERE id_membre \r\n" + 
+					"IN (\r\n" + 
+					"SELECT membre_id_membre\r\n" + 
+					"FROM inscription\r\n" + 
+					"WHERE savoir_id_savoir = ?\r\n" +
+					"AND type_inscription_id_type_inscription = 1)";
+		
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			rs = pstmt.executeQuery();
+			// resultat requete
+			while (rs.next()) {
+				membre = recupererMembreRS(rs);
+				listeMembres.add(membre);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+
+		return listeMembres;
+	}
+	
+	public List<Membre> recupererMembresPasseursDebutantsDeSavoir(Long id) throws Exception {
+		Membre membre;
+		PreparedStatement pstmt = null;
+		ResultSet rs;
+		String sql;
+		ArrayList<Membre> listeMembres = new ArrayList<Membre>();
+
+		try {
+			// Requete SQL
+			sql = "SELECT membre.* FROM membre \r\n" + 
+					"WHERE id_membre \r\n" + 
+					"IN (\r\n" + 
+					"SELECT membre_id_membre\r\n" + 
+					"FROM inscription\r\n" + 
+					"WHERE savoir_id_savoir = ?\r\n" +
+					"AND type_inscription_id_type_inscription = 1\r\n" +
+					"AND niveau_savoir_id_niveau_savoir = 1)";
+		
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			rs = pstmt.executeQuery();
+			// resultat requete
+			while (rs.next()) {
+				membre = recupererMembreRS(rs);
+				listeMembres.add(membre);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+
+		return listeMembres;
+	}
+	
+	public List<Membre> recupererMembresPasseursIntermediairesDeSavoir(Long id) throws Exception {
+		Membre membre;
+		PreparedStatement pstmt = null;
+		ResultSet rs;
+		String sql;
+		ArrayList<Membre> listeMembres = new ArrayList<Membre>();
+
+		try {
+			// Requete SQL
+			sql = "SELECT membre.* FROM membre \r\n" + 
+					"WHERE id_membre \r\n" + 
+					"IN (\r\n" + 
+					"SELECT membre_id_membre\r\n" + 
+					"FROM inscription\r\n" + 
+					"WHERE savoir_id_savoir = ?\r\n" +
+					"AND type_inscription_id_type_inscription = 1\r\n" +
+					"AND niveau_savoir_id_niveau_savoir = 2)";
+		
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			rs = pstmt.executeQuery();
+			// resultat requete
+			while (rs.next()) {
+				membre = recupererMembreRS(rs);
+				listeMembres.add(membre);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+
+		return listeMembres;
+	}
+	
+	public List<Membre> recupererMembresPasseursConfirmesDeSavoir(Long id) throws Exception {
+		Membre membre;
+		PreparedStatement pstmt = null;
+		ResultSet rs;
+		String sql;
+		ArrayList<Membre> listeMembres = new ArrayList<Membre>();
+
+		try {
+			// Requete SQL
+			sql = "SELECT membre.* FROM membre \r\n" + 
+					"WHERE id_membre \r\n" + 
+					"IN (\r\n" + 
+					"SELECT membre_id_membre\r\n" + 
+					"FROM inscription\r\n" + 
+					"WHERE savoir_id_savoir = ?\r\n" +
+					"AND type_inscription_id_type_inscription = 1\r\n" +
+					"AND niveau_savoir_id_niveau_savoir = 3)";
+		
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			rs = pstmt.executeQuery();
+			// resultat requete
+			while (rs.next()) {
+				membre = recupererMembreRS(rs);
+				listeMembres.add(membre);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+
+		return listeMembres;
+	}
+	
+	public List<Membre> recupererMembresReceveursDeSavoir(Long id) throws Exception {
+		Membre membre;
+		PreparedStatement pstmt = null;
+		ResultSet rs;
+		String sql;
+		ArrayList<Membre> listeMembres = new ArrayList<Membre>();
+
+		try {
+			// Requete SQL
+			sql = "SELECT membre.* FROM membre \r\n" + 
+					"WHERE id_membre \r\n" + 
+					"IN (\r\n" + 
+					"SELECT membre_id_membre\r\n" + 
+					"FROM inscription\r\n" + 
+					"WHERE savoir_id_savoir = ?\r\n" +
+					"AND type_inscription_id_type_inscription = 2)";
+		
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			rs = pstmt.executeQuery();
+			// resultat requete
+			while (rs.next()) {
+				membre = recupererMembreRS(rs);
+				listeMembres.add(membre);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+
+		return listeMembres;
+	}
+	
+	public List<Membre> recupererMembresReceveursDebutantsDeSavoir(Long id) throws Exception {
+		Membre membre;
+		PreparedStatement pstmt = null;
+		ResultSet rs;
+		String sql;
+		ArrayList<Membre> listeMembres = new ArrayList<Membre>();
+
+		try {
+			// Requete SQL
+			sql = "SELECT membre.* FROM membre \r\n" + 
+					"WHERE id_membre \r\n" + 
+					"IN (\r\n" + 
+					"SELECT membre_id_membre\r\n" + 
+					"FROM inscription\r\n" + 
+					"WHERE savoir_id_savoir = ?\r\n" +
+					"AND type_inscription_id_type_inscription = 2\r\n" +
+					"AND niveau_savoir_id_niveau_savoir = 1)";
+		
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			rs = pstmt.executeQuery();
+			// resultat requete
+			while (rs.next()) {
+				membre = recupererMembreRS(rs);
+				listeMembres.add(membre);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+
+		return listeMembres;
+	}
+	
+	public List<Membre> recupererMembresReceveursIntermediairesDeSavoir(Long id) throws Exception {
+		Membre membre;
+		PreparedStatement pstmt = null;
+		ResultSet rs;
+		String sql;
+		ArrayList<Membre> listeMembres = new ArrayList<Membre>();
+
+		try {
+			// Requete SQL
+			sql = "SELECT membre.* FROM membre \r\n" + 
+					"WHERE id_membre \r\n" + 
+					"IN (\r\n" + 
+					"SELECT membre_id_membre\r\n" + 
+					"FROM inscription\r\n" + 
+					"WHERE savoir_id_savoir = ?\r\n" +
+					"AND type_inscription_id_type_inscription = 2\r\n" +
+					"AND niveau_savoir_id_niveau_savoir = 2)";
+		
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			rs = pstmt.executeQuery();
+			// resultat requete
+			while (rs.next()) {
+				membre = recupererMembreRS(rs);
+				listeMembres.add(membre);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+
+		return listeMembres;
+	}
+	
+	public List<Membre> recupererMembresReceveursConfirmesDeSavoir(Long id) throws Exception {
+		Membre membre;
+		PreparedStatement pstmt = null;
+		ResultSet rs;
+		String sql;
+		ArrayList<Membre> listeMembres = new ArrayList<Membre>();
+
+		try {
+			// Requete SQL
+			sql = "SELECT membre.* FROM membre \r\n" + 
+					"WHERE id_membre \r\n" + 
+					"IN (\r\n" + 
+					"SELECT membre_id_membre\r\n" + 
+					"FROM inscription\r\n" + 
+					"WHERE savoir_id_savoir = ?\r\n" +
+					"AND type_inscription_id_type_inscription = 2\r\n" +
+					"AND niveau_savoir_id_niveau_savoir = 3)";
+		
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setLong(1, id);
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			rs = pstmt.executeQuery();
+			// resultat requete
+			while (rs.next()) {
+				membre = recupererMembreRS(rs);
+				listeMembres.add(membre);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+
+		return listeMembres;
+	}
 
 	private Membre recupererMembreRS(ResultSet rs) throws SQLException {
 		Membre membre = new Membre();

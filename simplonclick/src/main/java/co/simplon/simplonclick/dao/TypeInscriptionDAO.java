@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import co.simplon.simplonclick.model.Inscription;
+import co.simplon.simplonclick.model.TypeInscription;
 
 @Repository
 public class TypeInscriptionDAO {
@@ -91,6 +92,55 @@ public class TypeInscriptionDAO {
 
 		sql = pstmt.toString().substring(pstmt.toString().indexOf(":") + 2);
 		log.debug(sql);
+	}
+	
+	/**
+	 * Rechercher les types d'inscription avec un critère de recherche sur tous les champs
+	 * 
+	 * @param filtreTypeInscription
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TypeInscription> recupererTypesInscriptionTriees(String rechercheTypeInscription) throws Exception {
+		List<TypeInscription> typesInscriptionTriees = new ArrayList<TypeInscription>();
+
+		TypeInscription typeInscription;
+		PreparedStatement pstmt = null;
+		ResultSet rs;
+		String sql;
+
+		try {
+			// Requete SQL
+			sql = "SELECT * FROM type_inscription WHERE type_inscription LIKE ?;";
+			pstmt = dataSource.getConnection().prepareStatement(sql);
+			pstmt.setString(1, "%" + rechercheTypeInscription + "%");
+
+			// Log info
+			logSQL(pstmt);
+			// Lancement requete
+			rs = pstmt.executeQuery();
+			// resultat requete
+			while (rs.next()) {
+				typeInscription = recupererTypeInscriptionRS(rs);
+				typesInscriptionTriees.add(typeInscription);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("SQL Error !:" + pstmt.toString(), e);
+			throw e;
+		} finally {
+			pstmt.close();
+		}
+
+		return typesInscriptionTriees;
+	}
+	
+	private TypeInscription recupererTypeInscriptionRS(ResultSet rs) throws SQLException {
+		TypeInscription typeInscription = new TypeInscription();
+		typeInscription.setId_type_inscription(rs.getLong("id_type_inscription"));
+		typeInscription.setType_inscription(rs.getString("type_inscription"));
+
+		return typeInscription;
 	}
 	
 }

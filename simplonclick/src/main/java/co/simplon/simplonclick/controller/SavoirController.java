@@ -164,6 +164,142 @@ public class SavoirController {
 		return ResponseEntity.status(HttpStatus.OK).body(membres);
 	}
 	
+	@GetMapping(path = "/savoir/{id}/membres-passeurs")
+	public ResponseEntity<?> recupererMembresPasseursDeSavoir(@PathVariable(value = "id") long id) throws Exception {
+		List<Membre> membres = null;
+		Savoir savoir = savoirService.getSavoir(id);
+		try {
+			membres = savoirDAO.recupererMembresPasseursDeSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (savoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(membres);
+	}
+	
+	@GetMapping(path = "/savoir/{id}/membres-passeurs-debutants")
+	public ResponseEntity<?> recupererMembresPasseursDebutantsDeSavoir(@PathVariable(value = "id") long id) throws Exception {
+		List<Membre> membres = null;
+		Savoir savoir = savoirService.getSavoir(id);
+		try {
+			membres = savoirDAO.recupererMembresPasseursDebutantsDeSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (savoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(membres);
+	}
+	
+	@GetMapping(path = "/savoir/{id}/membres-passeurs-intermediaires")
+	public ResponseEntity<?> recupererMembresPasseursIntermediairesDeSavoir(@PathVariable(value = "id") long id) throws Exception {
+		List<Membre> membres = null;
+		Savoir savoir = savoirService.getSavoir(id);
+		try {
+			membres = savoirDAO.recupererMembresPasseursIntermediairesDeSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (savoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(membres);
+	}
+	
+	@GetMapping(path = "/savoir/{id}/membres-passeurs-confirmes")
+	public ResponseEntity<?> recupererMembresPasseursConfirmesDeSavoir(@PathVariable(value = "id") long id) throws Exception {
+		List<Membre> membres = null;
+		Savoir savoir = savoirService.getSavoir(id);
+		try {
+			membres = savoirDAO.recupererMembresPasseursConfirmesDeSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (savoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(membres);
+	}
+	
+	@GetMapping(path = "/savoir/{id}/membres-receveurs")
+	public ResponseEntity<?> recupererMembresReceveursDeSavoir(@PathVariable(value = "id") long id) throws Exception {
+		List<Membre> membres = null;
+		Savoir savoir = savoirService.getSavoir(id);
+		try {
+			membres = savoirDAO.recupererMembresReceveursDeSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (savoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(membres);
+	}
+	
+	@GetMapping(path = "/savoir/{id}/membres-receveurs-debutants")
+	public ResponseEntity<?> recupererMembresReceveursDebutantsDeSavoir(@PathVariable(value = "id") long id) throws Exception {
+		List<Membre> membres = null;
+		Savoir savoir = savoirService.getSavoir(id);
+		try {
+			membres = savoirDAO.recupererMembresReceveursDebutantsDeSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (savoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(membres);
+	}
+	
+	@GetMapping(path = "/savoir/{id}/membres-receveurs-intermediaires")
+	public ResponseEntity<?> recupererMembresReceveursIntermediairesDeSavoir(@PathVariable(value = "id") long id) throws Exception {
+		List<Membre> membres = null;
+		Savoir savoir = savoirService.getSavoir(id);
+		try {
+			membres = savoirDAO.recupererMembresReceveursIntermediairesDeSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (savoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(membres);
+	}
+	
+	@GetMapping(path = "/savoir/{id}/membres-receveurs-confirmes")
+	public ResponseEntity<?> recupererMembresReceveursConfirmesDeSavoir(@PathVariable(value = "id") long id) throws Exception {
+		List<Membre> membres = null;
+		Savoir savoir = savoirService.getSavoir(id);
+		try {
+			membres = savoirDAO.recupererMembresReceveursConfirmesDeSavoir(id);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			
+		}
+		if (savoir == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(membres);
+	}
+	
 	/**
 	 * Ajouter un savoir à une catégorie de savoir
 	 * 

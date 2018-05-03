@@ -110,5 +110,24 @@ public class TypeInscriptionController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(inscriptions);
 	}
+	
+	/**
+	 * Permettre une recherche de type d'inscription(s) suivant des mots-clés
+	 * 
+	 * @param recherche
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping(path = "/types-inscription/{recherche}")
+	public ResponseEntity<List<TypeInscription>> recupererTypesTriees(@PathVariable(value = "recherche") String recherche)
+			throws Exception {
+		// @RequestParam(required = false, value="nom") String nom
+
+		List<TypeInscription> listeTypeInscription = typeInscriptionDAO.recupererTypesInscriptionTriees(recherche);
+		if (listeTypeInscription == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(listeTypeInscription);
+	}
 
 }
