@@ -19,10 +19,10 @@ INSERT IGNORE INTO `simplonclick`.`ressource` (`id_ressource`, `url`, `nom_resso
 INSERT IGNORE INTO `simplonclick`.`ressource` (`id_ressource`, `url`, `nom_ressource`, `savoir_id_savoir`) VALUES (2, 'https://www.ressource2@codecademy.com', 'Codecademy', 2);
 INSERT IGNORE INTO `simplonclick`.`ressource` (`id_ressource`, `url`, `nom_ressource`, `savoir_id_savoir`) VALUES (3, 'https://www.ressource3@wikipedia.com', 'Wikipedia', 6);
 
-INSERT IGNORE INTO `simplonclick`.`inscription` (`id_inscription`, `nom_inscription`, `membre_id_membre`, `niveau_savoir_id_niveau_savoir`, `savoir_id_savoir`, `type_inscription_id_type_inscription`) VALUES (1, 'BesoinGafaJava', 1, 3, 1, 1);
-INSERT IGNORE INTO `simplonclick`.`inscription` (`id_inscription`, `nom_inscription`, `membre_id_membre`, `niveau_savoir_id_niveau_savoir`, `savoir_id_savoir`, `type_inscription_id_type_inscription`) VALUES (2, 'TobyPHP', 2, 1, 2, 2);
-INSERT IGNORE INTO `simplonclick`.`inscription` (`id_inscription`, `nom_inscription`, `membre_id_membre`, `niveau_savoir_id_niveau_savoir`, `savoir_id_savoir`, `type_inscription_id_type_inscription`) VALUES (3, 'LouveAnglais', 4, 3, 4, 1);
-INSERT IGNORE INTO `simplonclick`.`inscription` (`id_inscription`, `nom_inscription`, `membre_id_membre`, `niveau_savoir_id_niveau_savoir`, `savoir_id_savoir`, `type_inscription_id_type_inscription`) VALUES (4, 'Gafa2HTML', 1, 1, 5, 2);
+INSERT IGNORE INTO `simplonclick`.`inscription` (`id_inscription`, `nom_inscription`, `membre_id_membre`, `niveau_savoir_id_niveau_savoir`, `savoir_id_savoir`, `type_inscription_id_type_inscription`) VALUES (1, 'Java (Classes abstraites)', 1, 3, 1, 1);
+INSERT IGNORE INTO `simplonclick`.`inscription` (`id_inscription`, `nom_inscription`, `membre_id_membre`, `niveau_savoir_id_niveau_savoir`, `savoir_id_savoir`, `type_inscription_id_type_inscription`) VALUES (2, 'PHP (sécurité)', 2, 1, 2, 2);
+INSERT IGNORE INTO `simplonclick`.`inscription` (`id_inscription`, `nom_inscription`, `membre_id_membre`, `niveau_savoir_id_niveau_savoir`, `savoir_id_savoir`, `type_inscription_id_type_inscription`) VALUES (3, 'UML (en général)', 4, 3, 4, 1);
+INSERT IGNORE INTO `simplonclick`.`inscription` (`id_inscription`, `nom_inscription`, `membre_id_membre`, `niveau_savoir_id_niveau_savoir`, `savoir_id_savoir`, `type_inscription_id_type_inscription`) VALUES (4, 'Anglais (technique)', 1, 1, 5, 2);
 
 INSERT IGNORE INTO `simplonclick`.`type_inscription` (`id_type_inscription`, `type_inscription`) VALUES (1, 'Passeur');
 INSERT IGNORE INTO `simplonclick`.`type_inscription` (`id_type_inscription`, `type_inscription`) VALUES (2, 'Receveur');
