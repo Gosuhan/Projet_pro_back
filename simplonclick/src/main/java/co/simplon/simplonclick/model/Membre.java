@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -36,6 +37,7 @@ public class Membre {
 	private String nom;
 	private String prenom;
 	private boolean admin = false;
+	@Pattern(regexp="^(\\w||\\.)+@\\w+\\.\\w+$")
 	private String email;
 	private String pseudo_slack;
 	private String image;
