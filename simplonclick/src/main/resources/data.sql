@@ -15,9 +15,9 @@ INSERT IGNORE INTO `simplonclick`.`savoir` (`id_savoir`, `nom_savoir`, `categori
 INSERT IGNORE INTO `simplonclick`.`savoir` (`id_savoir`, `nom_savoir`, `categorie_savoir_id_categorie_savoir`) VALUES (5, 'Anglais', 3);
 INSERT IGNORE INTO `simplonclick`.`savoir` (`id_savoir`, `nom_savoir`, `categorie_savoir_id_categorie_savoir`) VALUES (6,'HTML', 2);
 
-INSERT IGNORE INTO `simplonclick`.`ressource` (`id_ressource`, `url`, `nom_ressource`, `savoir_id_savoir`) VALUES (1, 'https://www.ressource1@openclassroom.com', 'OpenClassRoom', 1);
-INSERT IGNORE INTO `simplonclick`.`ressource` (`id_ressource`, `url`, `nom_ressource`, `savoir_id_savoir`) VALUES (2, 'https://www.ressource2@codecademy.com', 'Codecademy', 2);
-INSERT IGNORE INTO `simplonclick`.`ressource` (`id_ressource`, `url`, `nom_ressource`, `savoir_id_savoir`) VALUES (3, 'https://www.ressource3@wikipedia.com', 'Wikipedia', 6);
+INSERT IGNORE INTO `simplonclick`.`ressource` (`id_ressource`, `url`, `nom_ressource`, `savoir_id_savoir`) VALUES (1, 'https://www.openclassrooms.com', 'OpenClassRoom', 1);
+INSERT IGNORE INTO `simplonclick`.`ressource` (`id_ressource`, `url`, `nom_ressource`, `savoir_id_savoir`) VALUES (2, 'https://www.codecademy.com', 'Codecademy', 2);
+INSERT IGNORE INTO `simplonclick`.`ressource` (`id_ressource`, `url`, `nom_ressource`, `savoir_id_savoir`) VALUES (3, 'https://www.wikipedia.org', 'Wikipedia', 6);
 
 INSERT IGNORE INTO `simplonclick`.`inscription` (`id_inscription`, `nom_inscription`, `membre_id_membre`, `niveau_savoir_id_niveau_savoir`, `savoir_id_savoir`, `type_inscription_id_type_inscription`) VALUES (1, 'Java (Classes abstraites)', 1, 3, 1, 1);
 INSERT IGNORE INTO `simplonclick`.`inscription` (`id_inscription`, `nom_inscription`, `membre_id_membre`, `niveau_savoir_id_niveau_savoir`, `savoir_id_savoir`, `type_inscription_id_type_inscription`) VALUES (2, 'PHP (sécurité)', 2, 1, 2, 2);
